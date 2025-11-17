@@ -1,0 +1,148 @@
+version: 2
+
+updates:
+  # ----------------------------
+  # به‌روزرسانی وابستگی‌های npm (Node.js)
+  # ----------------------------
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 15
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "automated"
+    reviewers:
+      - "ollama-team"
+    assignees:
+      - "ollama-team"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    groups:
+      production-dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "*-dev"
+          - "*-test"
+      development-dependencies:
+        patterns:
+          - "*-dev"
+          - "*-test"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+
+  # ----------------------------
+  # به‌روزرسانی وابستگی‌های pip (Python)
+  # ----------------------------
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 15
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "pip"
+      - "automated"
+    reviewers:
+      - "ollama-team"
+    assignees:
+      - "ollama-team"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+
+  # ----------------------------
+  # به‌روزرسانی وابستگی‌های Docker
+  # ----------------------------
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "docker"
+      - "automated"
+    reviewers:
+      - "ollama-team"
+    assignees:
+      - "ollama-team"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
+  # ----------------------------
+  # به‌روزرسانی وابستگی‌های GitHub Actions
+  # ----------------------------
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "automated"
+    commit-message:
+      prefix: "chore(ci)"
+      include: "scope"
+
+  # ----------------------------
+  # به‌روزرسانی‌های امنیتی (فقط برای npm و pip)
+  # ----------------------------
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 5
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "security"
+      - "automated"
+    reviewers:
+      - "ollama-team"
+    assignees:
+      - "ollama-team"
+    commit-message:
+      prefix: "chore(deps-security)"
+      include: "scope"
+    security-updates-only: true
+
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 5
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "security"
+      - "automated"
+    reviewers:
+      - "ollama-team"
+    assignees:
+      - "ollama-team"
+    commit-message:
+      prefix: "chore(deps-security)"
+      include: "scope"
+    security-updates-only: true
